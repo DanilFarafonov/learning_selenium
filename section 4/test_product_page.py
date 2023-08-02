@@ -6,4 +6,5 @@ def test_guest_can_add_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()
     page.should_be_product_page()
-    page.should_be_add_to_basket_one_product()
+    page.add_product_to_basket()
+    page.should_be_success_message()

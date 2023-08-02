@@ -20,15 +20,15 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), \
             "Отсутствует цена товара"
 
-    def should_be_add_to_basket_one_product(self):
-        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
-        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
-
+    def add_product_to_basket(self):
         add_to_basket_btn = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         self.browser.execute_script('return arguments[0].scrollIntoView(true);', add_to_basket_btn)
         add_to_basket_btn.click()
-
         self.solve_quiz_and_get_code()
+
+    def should_be_success_message(self):
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
+        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
 
         product_name_added_to_basket = self.browser. \
             find_element(*ProductPageLocators.PRODUCT_NAME_ADDED_TO_BASKET).text
