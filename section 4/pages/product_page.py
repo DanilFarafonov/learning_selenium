@@ -24,7 +24,6 @@ class ProductPage(BasePage):
         add_to_basket_btn = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         self.browser.execute_script('return arguments[0].scrollIntoView(true);', add_to_basket_btn)
         add_to_basket_btn.click()
-        self.solve_quiz_and_get_code()
 
     def should_be_success_message(self):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
@@ -38,3 +37,11 @@ class ProductPage(BasePage):
             'Наименование добавляемого товара не совпадает с товаром, который был добавлен'
         assert product_price == basket_sum, \
             'Цена за товар не соответствует стоимости корзины с этим товаром'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.PRODUCT_NAME_ADDED_TO_BASKET), \
+            "Сообщение о добавлении товара есть, а быть не должно"
+
+    def should_be_disappeared_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.PRODUCT_NAME_ADDED_TO_BASKET), \
+            'Сообщение об успехе не исчезло'
